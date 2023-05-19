@@ -1,0 +1,2 @@
+All images need to be 314 x 177 AND need to be either a .png or .jpg. 
+After placing them in this folder, you can select the image in the database/quests/ file and change it to the name of the image you placed in this folder.
