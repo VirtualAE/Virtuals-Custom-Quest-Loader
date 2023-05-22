@@ -53,16 +53,8 @@ class Mod implements IPostDBLoadMod {
                             const localesFullPath = localesPath + languageValue + "/" + file;
                             const localeSelected = require('' + localesFullPath)
                             const serverLocaleFile = localesServer[languageValue]
-
                             for (const i in localeSelected) {
-                                const serverFile = serverLocaleFile[i]
-                                const localFile = localeSelected[i]
-                                if (i == "quest") {
-                                    for (const x in localFile) {
-                                        serverFile[x] = localFile[x]
-
-                                    }
-                                }
+                                serverLocaleFile[i] = localeSelected[i]
                             }
                             logger.log(file+" loaded from "+languageValue+" locale", "yellow")
                         }
