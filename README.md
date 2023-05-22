@@ -1,6 +1,8 @@
 ## **Custom Quest Loader**
 Modders can follow these instructions to easily import quests into the game.
-(You can include this dependency file within your own download)
+(You can include this dependency file within your own download, but I don't reccomend it)
+
+To create your own mod with this tool, create a directory tree that follows the same structure (users/mods/Virtual's Custom Quest Loader/database/quests/    /locales/language/    /res/quests/)
 
 For a successful quest you always need a database/quests entry and a database/locales entry. 
 To help with values, I suggest following through existing quests or modded ones to see their functionality. You can also utilise this reference tool to help create quests. https://hub.sp-tarkov.com/doc/entry/57-resources-quest-values-reference-tool/
