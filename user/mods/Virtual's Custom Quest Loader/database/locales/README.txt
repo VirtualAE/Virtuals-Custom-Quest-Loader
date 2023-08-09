@@ -1,0 +1,1 @@
+Locales files need to be placed into the correct folder so they are loaded to the correct language setting. Locales are loaded from the server, so if a locale folder doesn't exist, you can create it.
