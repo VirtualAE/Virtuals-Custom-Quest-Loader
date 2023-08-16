@@ -1,7 +1,6 @@
 import { DependencyContainer} from "tsyringe";
 import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { ImageRouter } from "@spt-aki/routers/ImageRouter";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import * as path from "path";
@@ -14,10 +13,9 @@ class VCQL implements IPostDBLoadMod {
         const database = container.resolve<DatabaseServer>("DatabaseServer").getTables();
         const imageRouter = container.resolve< ImageRouter >("ImageRouter");
         const logger = container.resolve<ILogger>("WinstonLogger");
-        const configServer = container.resolve<ConfigServer>("ConfigServer");
 
         this.importQuests(database, logger)
-        this.importLocales(database, configServer)
+        this.importLocales(database)
         this.routeImages(imageRouter, logger)
     }
 
@@ -44,8 +42,8 @@ class VCQL implements IPostDBLoadMod {
         logger.success(`[VCQL] Loaded ${questCount} custom quests.`)
     }
 
-    public importLocales(database, configServer) {
-        const serverLocales = configServer.getConfig<ILocaleConfig>("aki-locale").serverSupportedLocales
+    public importLocales(database) {
+        const serverLocales = ['ch','cz','en','es','es-mx','fr','ge','hu','it','jp','pl','po','ru','sk','tu']
         const addedLocales = {}
         for (const locale of serverLocales) {
             this.loadFiles(`${modPath}/database/locales/${locale}`, [".json"], function(filePath) {
