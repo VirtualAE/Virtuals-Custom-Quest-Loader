@@ -1,5 +1,7 @@
 import { DependencyContainer} from "tsyringe";
 import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
+import { ConfigServer } from "@spt-aki/servers/ConfigServer";
+import { ConfigTypes } from "@spt-aki/models/enums/ConfigTypes";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { ImageRouter } from "@spt-aki/routers/ImageRouter";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
@@ -10,11 +12,12 @@ const modPath = path.normalize(path.join(__dirname, '..'));
 class VCQL implements IPostDBLoadMod {
     public postDBLoad(container: DependencyContainer): void 
     {
-        const database = container.resolve<DatabaseServer>("DatabaseServer").getTables();
-        const imageRouter = container.resolve< ImageRouter >("ImageRouter");
-        const logger = container.resolve<ILogger>("WinstonLogger");
+        const database = container.resolve<DatabaseServer>("DatabaseServer").getTables()
+        const imageRouter = container.resolve< ImageRouter >("ImageRouter")
+        const logger = container.resolve<ILogger>("WinstonLogger")
+        const config = container.resolve<ConfigServer>("ConfigServer").getConfig(ConfigTypes.QUEST)
 
-        this.importQuests(database, logger)
+        this.importQuests(database, logger, config)
         this.importLocales(database)
         this.routeImages(imageRouter, logger)
     }
@@ -29,12 +32,15 @@ class VCQL implements IPostDBLoadMod {
         });
     }
 
-    public importQuests(database, logger) {
+    public importQuests(database, logger, config) {
         let questCount = 0
         this.loadFiles(`${modPath}/database/quests/`, [".json"], function(filePath) {
             const item = require(filePath)
             if (Object.keys(item).length < 1) return 
             for (const quest in item) {
+                if (item[quest].side == "Usec") config.usecOnlyQuests.push(quest)
+                if (item[quest].side == "Bear") config.bearOnlyQuests.push(quest)
+                item[quest].side = "Pmc"
                 database.templates.quests[quest] = item[quest]
                 questCount++
             }
@@ -72,7 +78,7 @@ class VCQL implements IPostDBLoadMod {
     public routeImages(imageRouter, logger) {
         let imageCount = 0
         this.loadFiles(`${modPath}/res/quests/`, [".png", ".jpg"], function(filePath) {
-            imageRouter.addRoute(`/files/quest/icon/${path.basename(filePath, path.extname(filePath))}`, filePath);
+            imageRouter.addRoute(`/files/quest/icon/${path.basename(filePath, path.extname(filePath))}`, filePath)
             imageCount++
         })
         logger.success(`[VCQL] Loaded ${imageCount} custom images.`)
