@@ -34,10 +34,23 @@ class VCQL implements IPostDBLoadMod {
 
     public importQuests(database, logger, config) {
         let questCount = 0
+		let prunedCount = 0
         this.loadFiles(`${modPath}/database/quests/`, [".json"], function(filePath) {
             const item = require(filePath)
             if (Object.keys(item).length < 1) return 
             for (const quest in item) {
+				// Date check
+				if (item[quest].startMonth && item[quest].startMonth > 0) {
+					let month = new Date().getMonth()
+					let day = new Date().getDate()
+					if (month != (item[quest].startMonth - 1) || day < item[quest].startDay || day > item[quest].endDay) {
+						prunedCount++
+						continue;
+					}
+				}
+				// Cleanup
+				delete item[quest].startMonth; delete item[quest].startDay; delete item[quest].endDay;
+				// Push
                 if (item[quest].side == "Usec") config.usecOnlyQuests.push(quest)
                 if (item[quest].side == "Bear") config.bearOnlyQuests.push(quest)
                 item[quest].side = "Pmc"
@@ -46,6 +59,7 @@ class VCQL implements IPostDBLoadMod {
             }
         })
         logger.success(`[VCQL] Loaded ${questCount} custom quests.`)
+        logger.success(`[VCQL] ${prunedCount} custom quests were pruned due to date settings.`)
     }
 
     public importLocales(database) {
