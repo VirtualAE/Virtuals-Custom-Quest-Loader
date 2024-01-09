@@ -41,15 +41,18 @@ class VCQL implements IPostDBLoadMod {
             for (const quest in item) {
 				// Date check
 				if (item[quest].startMonth && item[quest].startMonth > 0) {
-					let month = new Date().getMonth()
-					let day = new Date().getDate()
-					if (month != (item[quest].startMonth - 1) || day < item[quest].startDay || day > item[quest].endDay) {
-						prunedCount++
-						continue;
-					}
+                    let currentDate = new Date()
+
+                    let questStartDate = new Date(currentDate.getFullYear(), item[quest].startMonth - 1, item[quest].startDay)
+                    let questEndDate = new Date(currentDate.getFullYear(), item[quest].endMonth - 1, item[quest].endDay)
+
+                    if (currentDate < questStartDate || currentDate > questEndDate) {
+                        prunedCount++
+					    continue;
+                    }
 				}
 				// Cleanup
-				delete item[quest].startMonth; delete item[quest].startDay; delete item[quest].endDay;
+				delete item[quest].startMonth; delete item[quest].endMonth; delete item[quest].startDay; delete item[quest].endDay;
 				// Push
                 if (item[quest].side == "Usec") config.usecOnlyQuests.push(quest)
                 if (item[quest].side == "Bear") config.bearOnlyQuests.push(quest)
