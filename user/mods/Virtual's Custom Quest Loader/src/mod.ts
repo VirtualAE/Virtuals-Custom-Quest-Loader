@@ -42,10 +42,8 @@ class VCQL implements IPostDBLoadMod {
 				// Date check
 				if (item[quest].startMonth && item[quest].startMonth > 0) {
                     let currentDate = new Date()
-
                     let questStartDate = new Date(currentDate.getFullYear(), item[quest].startMonth - 1, item[quest].startDay)
                     let questEndDate = new Date(currentDate.getFullYear(), item[quest].endMonth - 1, item[quest].endDay)
-
                     if (currentDate < questStartDate || currentDate > questEndDate) {
                         prunedCount++
 					    continue;
