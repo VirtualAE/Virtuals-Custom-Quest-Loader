@@ -1,5 +1,7 @@
 import { DependencyContainer} from "tsyringe";
 import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
+import { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod"
+import type {StaticRouterModService} from "@spt-aki/services/mod/staticRouter/StaticRouterModService";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { ConfigTypes } from "@spt-aki/models/enums/ConfigTypes";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
@@ -9,9 +11,31 @@ import * as path from "path";
 const fs = require('fs');
 const modPath = path.normalize(path.join(__dirname, '..'));
 
-class VCQL implements IPostDBLoadMod {
+class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
     private enableLogging
     private enableDebugLogging
+    private zones;
+
+    public preAkiLoad(container: DependencyContainer): void {
+        const staticRouterModService: StaticRouterModService = container.resolve<StaticRouterModService>("StaticRouterModService")
+        const logger = container.resolve<ILogger>("WinstonLogger")
+
+        this.loadZones()
+        staticRouterModService.registerStaticRouter(
+            "vcql-get-zones",
+            [
+                {
+                    url: "/vcql/zones/get",
+                    action: (url, info, sessionId, output) => 
+                    {
+                        logger.success("Router hit, zones")
+                        return JSON.stringify(this.zones);
+                    }
+                }
+            ],
+            "vcql-get"
+        )
+    }
 
     public postDBLoad(container: DependencyContainer): void 
     {
@@ -35,6 +59,16 @@ class VCQL implements IPostDBLoadMod {
             if (item.isDirectory()) this.loadFiles(itemPath, extName, cb)
             else if (extName.includes(path.extname(item.name))) cb(itemPath)
         });
+    }
+
+    public loadZones() {
+        let zones = []
+        this.loadFiles(`${modPath}/database/zones/`, [".json"], function(filePath) {
+            const zoneFile = require(filePath)
+            if (Object.keys(zoneFile).length > 0)
+                zones.push(... zoneFile)
+        })
+        this.zones = zones
     }
 
     public importConfig() {
@@ -93,7 +127,7 @@ class VCQL implements IPostDBLoadMod {
         let debugLogging = this.enableDebugLogging
         this.loadFiles(`${modPath}/database/assorts/`, [".json"], function(filePath) {
             const assorts = require(filePath)
-            if (assorts.items == undefined || assorts.traderID == undefined || assorts.barter_scheme == undefined) return
+            if (assorts.items == undefined || assorts.traderID == undefined || assorts.barter_scheme == undefined || assorts.loyal_level_items == undefined) return
             
             let traderID = assorts.traderID
             let databaseTrader = database.traders[traderID]
@@ -104,11 +138,13 @@ class VCQL implements IPostDBLoadMod {
                 success: {},
                 fail: {}
             }
+
             if (databaseTrader.assort == undefined) databaseTrader.assort = {
                 items: [],
                 barter_scheme: {},
                 loyal_level_items: {}
             }
+            
             // Add barter scheme, loyalty level, quest assort and general assort, where applicable
             for (const assort of assorts.items) {
                 if (assorts.barter_scheme[assort._id] != undefined) {
@@ -117,9 +153,8 @@ class VCQL implements IPostDBLoadMod {
                     if (assort.parentId == "hideout") logger.error(`[VCQL] Parent assort ${assort._id} has no associated barter scheme.`)
                 }
 
-                if (assort.loyaltyLevel != undefined) {
-                    databaseTrader.assort.loyal_level_items[assort._id] = assort.loyaltyLevel
-                    delete assort.loyaltyLevel
+                if (assorts.loyal_level_items[assort._id] != undefined) {
+                    databaseTrader.assort.loyal_level_items[assort._id] = assorts.loyal_level_items[assort._id]
                 } else {
                     if (assort.parentId == "hideout") logger.error(`[VCQL] Parent assort ${assort._id} has no associated loyalty level`)
                 }
