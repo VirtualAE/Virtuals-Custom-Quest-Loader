@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
+using EFT;
+using EFT.UI;
+using EFT.Interactive;
 
 namespace VCQLQuestZones.Core
 {

@@ -1,10 +1,12 @@
-﻿using EFT.UI;
+﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using Comfort.Common;
-using EFT;
-using System.Reflection;
-using System;
+using EFT.UI;
+using EFT.Interactive;
+using EFT.PrefabSettings;
+
 
 namespace VCQLQuestZones.Core
 {
