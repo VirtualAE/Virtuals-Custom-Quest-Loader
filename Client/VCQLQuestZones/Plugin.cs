@@ -11,6 +11,8 @@ using Comfort.Common;
 using EFT;
 using Newtonsoft.Json;
 using System.IO;
+using EFT.UI;
+using System.Text;
 
 namespace VCQLQuestZones
 {
@@ -25,10 +27,11 @@ namespace VCQLQuestZones
         private static int currentSelectIndex = -1;
         private static readonly List<CustomZoneContainer> zones = new List<CustomZoneContainer>();
         private static readonly string[] acceptableTypes = new string[] { "placeitem", "visit", "flarezone", "botkillzone" };
-
+        private static readonly string[] acceptableFlareTypes = new string[] { "", "Light", "Airdrop", "ExitActivate", "Quest", "AIFollowEvent" };
 
         internal static ConfigEntry<string> NewZoneName { get; private set; }
         internal static ConfigEntry<string> NewZoneType { get; private set; }
+        internal static ConfigEntry<string> FlareZoneType { get; private set; }
 
         internal static ConfigEntry<float> ZoneAdjustmentValue { get; private set; }
         internal static ConfigEntry<float> PositionConfigX { get; private set; }
@@ -60,11 +63,14 @@ namespace VCQLQuestZones
                 new ConfigDescription("The name for the new zone", null,
                 new ConfigurationManagerAttributes { Order = 1 }));
             NewZoneType = Config.Bind("1. Create Zone", "Zone Type", "",
-                new ConfigDescription("Add the ID for the new zone", new AcceptableValueList<string>(acceptableTypes),
+                new ConfigDescription("Select the type of zone", new AcceptableValueList<string>(acceptableTypes),
                 new ConfigurationManagerAttributes { Order = 2 }));
+            FlareZoneType = Config.Bind("1. Create Zone", "(Optional) Flare Type", "",
+                new ConfigDescription("Select the flare zone type", new AcceptableValueList<string>(acceptableFlareTypes), "",
+                new ConfigurationManagerAttributes { Order = 3 }));
             Config.Bind("1. Create Zone", "Add Zone", "New Zone",
                 new ConfigDescription("Adds a new zone with the zone ID", null,
-                new ConfigurationManagerAttributes { CustomDrawer = DrawerNewZone, Order = 3 }));
+                new ConfigurationManagerAttributes { CustomDrawer = DrawerNewZone, Order = 4 }));
 
             // Select Configs
             Config.Bind("2. Select Zone", "Navigate Zones", "",
@@ -112,6 +118,8 @@ namespace VCQLQuestZones
 
             // Reset all configs on launch to remove old values
             NewZoneName.Value = (string)NewZoneName.DefaultValue;
+            NewZoneType.Value = (string)NewZoneType.DefaultValue;
+            FlareZoneType.Value = (string)FlareZoneType.DefaultValue;
             PositionConfigX.Value = (float)PositionConfigX.DefaultValue;
             PositionConfigY.Value = (float)PositionConfigY.DefaultValue;
             PositionConfigZ.Value = (float)PositionConfigZ.DefaultValue;
@@ -141,7 +149,8 @@ namespace VCQLQuestZones
                 if (newZoneObject == null) return;
 
                 string zoneType = NewZoneType.Value;
-                CustomZoneContainer newZone = new CustomZoneContainer(newZoneObject, zoneType);
+                string flareType = string.IsNullOrEmpty(FlareZoneType.Value) ? "" : FlareZoneType.Value;
+                CustomZoneContainer newZone = new CustomZoneContainer(newZoneObject, zoneType, flareType);
                 zones.Add(newZone);
                 Log.LogInfo(zones.Count);
             }

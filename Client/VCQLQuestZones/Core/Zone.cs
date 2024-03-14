@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
-using EFT;
-using EFT.UI;
-using EFT.Interactive;
 
 namespace VCQLQuestZones.Core
 {
@@ -33,23 +29,6 @@ namespace VCQLQuestZones.Core
             this.X = x; 
             this.Y = y;
             this.Z = z;
-        }
-    }
-
-    public class ZoneFlareTrigger : TriggerWithId
-    {
-        public int _experience;
-
-        void Awake()
-        {
-            gameObject.layer = LayerMask.NameToLayer("Triggers");
-        }
-        public override void TriggerEnter(Player player)
-        {
-            base.TriggerEnter(player);
-#if DEBUG
-            ConsoleScreen.Log("VCQL: Entered Flare Zone.");
-#endif
         }
     }
 }

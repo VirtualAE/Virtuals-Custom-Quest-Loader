@@ -3,9 +3,11 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using Comfort.Common;
+using EFT;
 using EFT.UI;
 using EFT.Interactive;
 using EFT.PrefabSettings;
+
 
 
 namespace VCQLQuestZones.Core
@@ -33,14 +35,8 @@ namespace VCQLQuestZones.Core
                         ConsoleScreen.Log($"Position X: {zone.Position.X}");
                         ConsoleScreen.Log("ZonePosition:");
                         ConsoleScreen.Log($"ZoneType: {zone.ZoneType}");
-                        if (!string.IsNullOrEmpty(zone.FlareType))
-                        {
-                            ConsoleScreen.Log($"FlareType: {zone.FlareType}");
-                        }
-                        else
-                        {
-                            ConsoleScreen.Log($"FlareType: N/A");
-                        }
+                        if (!string.IsNullOrEmpty(zone.FlareType)) ConsoleScreen.Log($"FlareType: {zone.FlareType}");  
+                        else ConsoleScreen.Log($"FlareType: N/A");
                         ConsoleScreen.Log($"ZoneLocation: {zone.ZoneLocation}");
                         ConsoleScreen.Log($"ZoneId: {zone.ZoneId}");
                         ConsoleScreen.Log($"ZoneName: {zone.ZoneName}");
@@ -124,20 +120,21 @@ namespace VCQLQuestZones.Core
 
         public static GameObject ZoneCreateFlareZone(Zone zone)
         {
+            // Thank you Groovey :)
             GameObject newZone = new GameObject();
 
             BoxCollider boxCollider = newZone.AddComponent<BoxCollider>();
             boxCollider.isTrigger = true;
 
 
-            Vector3 position = new Vector3(float.Parse(zone.position.x), float.Parse(zone.position.y), float.Parse(zone.position.z));
-            Vector3 scale = new Vector3(float.Parse(zone.scale.x), float.Parse(zone.scale.y), float.Parse(zone.scale.z));
+            Vector3 position = new Vector3(float.Parse(zone.Position.X), float.Parse(zone.Position.Y), float.Parse(zone.Position.Z));
+            Vector3 scale = new Vector3(float.Parse(zone.Scale.X), float.Parse(zone.Scale.Y), float.Parse(zone.Scale.Z));
 
             newZone.transform.position = position;
             newZone.transform.localScale = scale;
 
             ZoneFlareTrigger flareTrigger = newZone.AddComponent<ZoneFlareTrigger>();
-            flareTrigger.SetId(zone.zoneId);
+            flareTrigger.SetId(zone.ZoneId);
 
             MoveObjectsToAdditionalPhysSceneMarker moveObjectsToAdditionalPhysSceneMarker = newZone.AddComponent<MoveObjectsToAdditionalPhysSceneMarker>();
 
@@ -146,9 +143,9 @@ namespace VCQLQuestZones.Core
             Type flareDetectorType = typeof(FlareShootDetectorZone);
             BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
             FieldInfo zoneIDField = flareDetectorType.GetField("zoneID", bindingFlags);
-            zoneIDField.SetValue(flareDetector, zone.zoneId);
+            zoneIDField.SetValue(flareDetector, zone.ZoneId);
 
-            FlareEventType flareType = (FlareEventType)Enum.Parse(typeof(FlareEventType), zone.flareType);
+            FlareEventType flareType = (FlareEventType)Enum.Parse(typeof(FlareEventType), zone.FlareType);
             FieldInfo flareTypeForHandleField = flareDetectorType.GetField("flareTypeForHandle", bindingFlags);
             flareTypeForHandleField.SetValue(flareDetector, flareType);
 
@@ -160,7 +157,7 @@ namespace VCQLQuestZones.Core
             triggerHandlers.Add(triggerHandler);
 
             newZone.layer = LayerMask.NameToLayer("Triggers");
-            newZone.name = zone.zoneId;
+            newZone.name = zone.ZoneId;
 
             return newZone;
         }

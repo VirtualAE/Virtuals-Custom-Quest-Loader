@@ -12,12 +12,12 @@ namespace VCQLQuestZones.Core
     internal static class Utils
     {
         // Get player position if available
-        public static Vector3 GetPlayerPosition()
+        public static Vector3? GetPlayerPosition()
         {
             if (!Singleton<GameWorld>.Instance.MainPlayer)
             {
                 ConsoleScreen.Log("Player is null, or you are not ingame.");
-                return new Vector3(0, 0, 0);
+                return null;
             }
 
             var position = Singleton<GameWorld>.Instance.MainPlayer.Position;
@@ -34,8 +34,9 @@ namespace VCQLQuestZones.Core
         // Create and return a basic cube to represent a zone position
         public static GameObject CreateNewZoneCube(string objectName)
         {
-            Vector3 position = GetPlayerPosition();
-            if (position == new Vector3(0, 0, 0)) return null;
+            Vector3? position = GetPlayerPosition();
+            if (position == null) return null;
+            Vector3 vectorPosition = (Vector3)position;
 
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Renderer renderer = cube.GetComponent<Renderer>();
@@ -53,7 +54,7 @@ namespace VCQLQuestZones.Core
             renderer.material.color = Plugin.ColorZoneRed;
 
             cube.GetComponent<Collider>().enabled = false;
-            cube.transform.position = new Vector3(position.x, position.y, position.z); ;
+            cube.transform.position = new Vector3(vectorPosition.x, vectorPosition.y, vectorPosition.z); ;
             cube.transform.localScale = new Vector3(1f, 1f, 1f);
             cube.name = objectName;
             return cube;
@@ -73,6 +74,7 @@ namespace VCQLQuestZones.Core
                     ZoneName = zoneObject.name,
                     ZoneLocation = locationId,
                     ZoneType = zone.ZoneType,
+                    FlareType = zone.FlareZoneType,
                     Position = new ZoneTransform(zoneObject.transform.position.x.ToString(), zoneObject.transform.position.y.ToString(), zoneObject.transform.position.z.ToString()),
                     Scale = new ZoneTransform(zoneObject.transform.localScale.x.ToString(), zoneObject.transform.localScale.y.ToString(), zoneObject.transform.localScale.z.ToString()),
                     Rotation = new ZoneTransform(zoneObject.transform.rotation.x.ToString(), zoneObject.transform.rotation.y.ToString(), zoneObject.transform.rotation.z.ToString())

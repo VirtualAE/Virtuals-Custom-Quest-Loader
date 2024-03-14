@@ -75,6 +75,7 @@
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Core\Zone.cs" />
     <Compile Include="Core\CustomZoneContainer.cs" />
+    <Compile Include="Core\ZoneFlareTrigger.cs" />
     <Compile Include="Patches\GameWorldPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
