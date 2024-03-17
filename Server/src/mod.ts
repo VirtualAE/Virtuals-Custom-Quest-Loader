@@ -206,7 +206,6 @@ class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
             if (debugLogging) logger.success(`[VCQL-DEBUG] Adding quest image ${path.basename(filePath)}`)
             questImageCount++
         })
-        logger.success(`[VCQL] Loaded ${questImageCount} custom quest images.`)
 
         let traderImageCount = 0
         this.loadFiles(`${modPath}/res/traders/`, [".png", ".jpg"], function(filePath) {
