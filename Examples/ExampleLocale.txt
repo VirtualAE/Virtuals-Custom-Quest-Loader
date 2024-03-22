@@ -1,0 +1,7 @@
+{
+    "VCQ_1_AFF_0": "Eliminate 20 Scavs on Interchange with a Glock 17",
+    "VCQ_1 name": "Mall Cop",
+    "VCQ_1 description": "So... I've been trying to establish some authority in Ultra but the savages there just don't seem to care about what I want. I've sent a few men out to deal with them and they just spit in my face. I can't have this any longer. I need you to go out and deal with them personally. Oh wait! Take this. They were laughing at the fact we only had pistols... Show them I mean business.",
+    "VCQ_1 failMessageText": "",
+    "VCQ_1 successMessageText": "It's done? Now we can actually get down to business. I Hope they learnt their lession. Keep in touch."
+}
