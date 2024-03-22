@@ -4,3 +4,4 @@
 *.bat
 Client/VCQLQuestZones/bin
 Client/VCQLQuestZones/obj
+Client/.vs
