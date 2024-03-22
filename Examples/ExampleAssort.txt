@@ -1,0 +1,157 @@
+All assorts in this file are for the trader 'cat'.
+Only the barters 'ammocase' and 'DVL' are unlocked with a quest. 'ammocase2' is a normal assort that will unlock with the loyalty level.
+Quest assorts require the quest ID and status to unlock on.
+The "StackObjectsCount" will specify how many of the item are available for trade.
+barter_scheme specifies what item(s) is/are required for each trade, and how many of them.
+loyal_level_items simply specifies what loyalty level they unlock at.
+
+{
+    "traderID": "cat",
+    "items": [
+        {
+            "_id": "ammocase",
+            "_tpl": "5aafbde786f774389d0cbc0f",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "upd": {
+                "StackObjectsCount": 2322
+            },
+            "unlockedOn": "success",
+            "questID": "VCQ_1"
+        },
+        {
+            "_id": "ammocase2",
+            "_tpl": "5aafbde786f774389d0cbc0f",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "upd": {
+                "StackObjectsCount": 2322
+            }
+        },
+        {
+            "_id": "DVL",
+            "_tpl": "588892092459774ac91d4b11",
+            "parentId": "hideout",
+            "slotId": "hideout",
+            "upd": {
+                "StackObjectsCount": 2322
+            },
+            "unlockedOn": "success",
+            "questID": "VCQ_1"
+        },
+        {
+            "_id": "b5780a5ec10ef2f4974d087c",
+            "_tpl": "5888988e24597752fe43a6fa",
+            "parentId": "DVL",
+            "slotId": "mod_magazine"
+        },
+        {
+            "_id": "57106bd9a490b373f7f0be42",
+            "_tpl": "57aca93d2459771f2c7e26db",
+            "parentId": "DVL",
+            "slotId": "mod_scope",
+            "upd": {
+                "Sight": {
+                    "ScopesCurrentCalibPointIndexes": [
+                        0,
+                        0
+                    ],
+                    "ScopesSelectedModes": [
+                        0,
+                        0
+                    ],
+                    "SelectedScope": 0
+                }
+            }
+        },
+        {
+            "_id": "122640ed63dfd608c1d8b661",
+            "_tpl": "5888945a2459774bf43ba385",
+            "parentId": "DVL",
+            "slotId": "mod_barrel"
+        },
+        {
+            "_id": "36f46a8e9756d0375c00f5a9",
+            "_tpl": "55d4b9964bdc2d1d4e8b456e",
+            "parentId": "DVL",
+            "slotId": "mod_pistol_grip"
+        },
+        {
+            "_id": "eba7245c55bbed47fc07fdc5",
+            "_tpl": "58889d0c2459775bc215d981",
+            "parentId": "DVL",
+            "slotId": "mod_stock"
+        },
+        {
+            "_id": "feec1f5b819e88f56fc19a48",
+            "_tpl": "58dd3ad986f77403051cba8f",
+            "parentId": "DVL",
+            "slotId": "patron_in_weapon"
+        },
+        {
+            "_id": "7a8b9f7363d1ffc2a1abc83b",
+            "_tpl": "58dd3ad986f77403051cba8f",
+            "parentId": "b5780a5ec10ef2f4974d087c",
+            "slotId": "cartridges",
+            "location": 0,
+            "upd": {
+                "StackObjectsCount": 2
+            }
+        },
+        {
+            "_id": "5ce9962d3bcc1f8528441f3e",
+            "_tpl": "58889c7324597754281f9439",
+            "parentId": "122640ed63dfd608c1d8b661",
+            "slotId": "mod_muzzle"
+        },
+        {
+            "_id": "9a09f494510897963f3023af",
+            "_tpl": "5888961624597754281f93f3",
+            "parentId": "122640ed63dfd608c1d8b661",
+            "slotId": "mod_bipod"
+        }
+    ],
+    "barter_scheme": {
+        "ammocase": [
+            [
+                {
+                    "_tpl": "56dff3afd2720bba668b4567",
+                    "count": 150
+                },
+                {
+                    "_tpl": "5656d7c34bdc2d9d198b4587",
+                    "count": 125
+                },
+                {
+                    "_tpl": "54527a984bdc2d4e668b4567",
+                    "count": 150
+                },
+                {
+                    "_tpl": "5887431f2459777e1612938f",
+                    "count": 75
+                }
+            ]
+        ],
+        "DVL": [
+            [
+                {
+                    "_tpl": "5449016a4bdc2d6f028b456f",
+                    "count": 44
+                }
+            ]
+        ],
+        "ammocase2": [
+            [
+                {
+                    "_tpl": "5449016a4bdc2d6f028b456f",
+                    "count": 44
+                }
+            ]
+        ]
+    },
+    "loyal_level_items": {
+        "ammocase": 1,
+        "DVL": 1,
+        "ammocase2": 1
+    }
+}

@@ -1,0 +1,26 @@
+Example output of a zone for a bus in customs.
+
+[
+  {
+    "ZoneId": "bus1",
+    "ZoneName": "bus1",
+    "ZoneLocation": "bigmap",
+    "ZoneType": "flarezone",
+    "FlareType": "Quest",
+    "Position": {
+      "X": "156.1925",
+      "Y": "0.1091736",
+      "Z": "38.91346"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "-0.0348995",
+      "Z": "0"
+    },
+    "Scale": {
+      "X": "17",
+      "Y": "6",
+      "Z": "3"
+    }
+  }
+]
