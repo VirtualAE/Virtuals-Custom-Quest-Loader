@@ -61,16 +61,16 @@ namespace VCQLQuestZones
             // New Configs
             NewZoneName = Config.Bind("1. Create Zone", "Zone ID", "",
                 new ConfigDescription("The name for the new zone", null,
-                new ConfigurationManagerAttributes { Order = 1 }));
+                new ConfigurationManagerAttributes { Order = 4 }));
             NewZoneType = Config.Bind("1. Create Zone", "Zone Type", "",
                 new ConfigDescription("Select the type of zone", new AcceptableValueList<string>(acceptableTypes),
-                new ConfigurationManagerAttributes { Order = 2 }));
+                new ConfigurationManagerAttributes { Order = 3 }));
             FlareZoneType = Config.Bind("1. Create Zone", "(Optional) Flare Type", "",
                 new ConfigDescription("Select the flare zone type", new AcceptableValueList<string>(acceptableFlareTypes), "",
-                new ConfigurationManagerAttributes { Order = 3 }));
+                new ConfigurationManagerAttributes { Order = 2 }));
             Config.Bind("1. Create Zone", "Add Zone", "New Zone",
                 new ConfigDescription("Adds a new zone with the zone ID", null,
-                new ConfigurationManagerAttributes { CustomDrawer = DrawerNewZone, Order = 4 }));
+                new ConfigurationManagerAttributes { CustomDrawer = DrawerNewZone, Order = 1 }));
 
             // Select Configs
             Config.Bind("2. Select Zone", "Navigate Zones", "",
