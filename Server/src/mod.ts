@@ -12,8 +12,9 @@ const fs = require('fs');
 const modPath = path.normalize(path.join(__dirname, '..'));
 
 class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
-    private enableLogging
-    private enableDebugLogging
+    private enableLogging;
+    private enableDebugLogging;
+    private ignoreSideExclusive;
     private zones;
 
     public preAkiLoad(container: DependencyContainer): void {
@@ -75,6 +76,7 @@ class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
         let config = require(`${modPath}/database/config/config.json`)
         this.enableLogging = config.enableLogging 
         this.enableDebugLogging = config.enableDebugLogging
+        this.ignoreSideExclusive = config.ignoreSideExclusive
     }
 
     public importQuests(database, logger, config) {
@@ -102,11 +104,11 @@ class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
 				delete item[quest].startMonth; delete item[quest].endMonth; delete item[quest].startDay; delete item[quest].endDay
 				// Push
                 if (item[quest].sideExclusive) {
-                    if (item[quest].sideExclusive == "Usec") {
+                    if (item[quest].sideExclusive == "Usec" && !this.ignoreSideExclusive) {
                         config.usecOnlyQuests.push(quest)
                         if (debugLogging) logger.success(`[VCQL-DEBUG] Adding quest ${item[quest]._id} as a Usec exclusive quest.`)
                     }
-                    if (item[quest].sideExclusive == "Bear") {
+                    if (item[quest].sideExclusive == "Bear" && !this.ignoreSideExclusive) {
                         config.bearOnlyQuests.push(quest)
                         if (debugLogging) logger.success(`[VCQL-DEBUG] Adding quest ${item[quest]._id} as a Bear exclusive quest.`)
                     }
@@ -172,7 +174,7 @@ class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
     }
 
     public importLocales(database) {
-        const serverLocales = ['ch','cz','en','es','es-mx','fr','ge','hu','it','jp','pl','po','ru','sk','tu']
+        const serverLocales = ['ch','cz','en','es','es-mx','fr','ge','hu','it','jp','kr','pl','po','ru','sk','tu']
         const addedLocales = {}
         for (const locale of serverLocales) {
             this.loadFiles(`${modPath}/database/locales/${locale}`, [".json"], function(filePath) {

@@ -1,4 +1,5 @@
 {
     "enableLogging": true,
-    "enableDebugLogging": false
+    "enableDebugLogging": false,
+    "ignoreSideExclusive": false
 }
