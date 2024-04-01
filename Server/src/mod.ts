@@ -83,6 +83,7 @@ class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
         let questCount = 0
 		let prunedCount = 0
         let debugLogging = this.enableDebugLogging
+        let ignoreSideExclusive = this.ignoreSideExclusive
         this.loadFiles(`${modPath}/database/quests/`, [".json"], function(filePath) {
             const item = require(filePath)
             if (Object.keys(item).length < 1) return 
@@ -104,11 +105,11 @@ class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
 				delete item[quest].startMonth; delete item[quest].endMonth; delete item[quest].startDay; delete item[quest].endDay
 				// Push
                 if (item[quest].sideExclusive) {
-                    if (item[quest].sideExclusive == "Usec" && !this.ignoreSideExclusive) {
+                    if (item[quest].sideExclusive == "Usec" && !ignoreSideExclusive) {
                         config.usecOnlyQuests.push(quest)
                         if (debugLogging) logger.success(`[VCQL-DEBUG] Adding quest ${item[quest]._id} as a Usec exclusive quest.`)
                     }
-                    if (item[quest].sideExclusive == "Bear" && !this.ignoreSideExclusive) {
+                    if (item[quest].sideExclusive == "Bear" && !ignoreSideExclusive) {
                         config.bearOnlyQuests.push(quest)
                         if (debugLogging) logger.success(`[VCQL-DEBUG] Adding quest ${item[quest]._id} as a Bear exclusive quest.`)
                     }
