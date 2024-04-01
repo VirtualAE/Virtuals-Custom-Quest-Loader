@@ -28,7 +28,7 @@ class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
                     url: "/vcql/zones/get",
                     action: (url, info, sessionId, output) => 
                     {
-                        logger.success("Router hit, zones")
+                        if (this.enableDebugLogging) logger.success("[VCQL-DEBUG] Zone router hit.")
                         return JSON.stringify(this.zones);
                     }
                 }
