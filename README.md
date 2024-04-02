@@ -91,3 +91,9 @@ For a working quest, you will need a file for quests and a file for locales. Eac
 ### Output Zones
 * Once you have all the zones you want, the 'Output Zones' button will output the zones into a JSON format that the loader can read.
 * The output file will be put into your SPT folder and will start with 'VCQL'. This file can be renamed and put straight into the 'zones' directory within the loader.
+
+### View Zones
+* Option to add any zones that have been loaded into the current match, back into the editor. You can use this to fix / alter your zones and then output them again to save the new properties.
+
+![Add Existing Zones](https://github.com/VirtualAE/Virtuals-Custom-Quest-Loader/assets/134059573/7f97c1b5-8145-49b6-89e6-8780ef451b3d)
+
