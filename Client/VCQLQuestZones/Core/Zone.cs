@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VCQLQuestZones.Core
 {
-    internal class Zone
+    public class Zone
     {
         public string ZoneId { get; set; }
         public string ZoneName { get; set; }
@@ -18,7 +18,7 @@ namespace VCQLQuestZones.Core
         public ZoneTransform Scale { get; set; }
     }
 
-    internal class ZoneTransform
+    public class ZoneTransform
     {
         public string X { get; set; }
         public string Y { get; set; }

@@ -21,6 +21,7 @@ namespace VCQLQuestZones
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log { get; private set; }
+        public static List<Zone> ExistingQuestZones { get; set; }
 
         private static string outputDir;
         private static string selectedZoneName;
@@ -57,6 +58,7 @@ namespace VCQLQuestZones
             outputDir = Path.GetFullPath(Path.Combine(assemblyLocation, @"..\..\..\"));
 
             selectedZoneName = "No Zone Selected";
+            ExistingQuestZones = new List<Zone>();
 
             // New Configs
             NewZoneName = Config.Bind("1. Create Zone", "Zone ID", "",
@@ -116,6 +118,11 @@ namespace VCQLQuestZones
                 new ConfigDescription("Outputs all zones to the root SPT directory.", null,
                 new ConfigurationManagerAttributes { CustomDrawer = DrawerOutputZones }));
 
+            // View Zones
+            Config.Bind("5. View Zones", "Add Existing Zones", false,
+                new ConfigDescription("Adds any currently loaded custom zones to the editor.", null,
+                new ConfigurationManagerAttributes { CustomDrawer = DrawerViewZones }));
+
             // Reset all configs on launch to remove old values
             NewZoneName.Value = (string)NewZoneName.DefaultValue;
             NewZoneType.Value = (string)NewZoneType.DefaultValue;
@@ -132,7 +139,29 @@ namespace VCQLQuestZones
 
             new GameWorldPatch().Enable();
         }
-        
+
+        private static void DrawerViewZones(ConfigEntryBase entry)
+        {
+            if (GUILayout.Button("Add Existing Zones"))
+            {
+                ExistingQuestZones.ForEach(questZone =>
+                {
+                    GameObject cube = Utils.CreateNewZoneCube(questZone.ZoneName);
+                    Vector3 position = new Vector3(float.Parse(questZone.Position.X), float.Parse(questZone.Position.Y), float.Parse(questZone.Position.Z));
+                    Vector3 rotation = new Vector3(float.Parse(questZone.Rotation.X), float.Parse(questZone.Rotation.Y), float.Parse(questZone.Rotation.Z));
+                    Vector3 scale = new Vector3(float.Parse(questZone.Scale.X), float.Parse(questZone.Scale.Y), float.Parse(questZone.Scale.Z));
+
+                    cube.transform.position = position;
+                    cube.transform.rotation = Quaternion.Euler(rotation);
+                    cube.transform.localScale = scale;
+
+                    CustomZoneContainer customZoneContainer = new CustomZoneContainer(cube, questZone.ZoneType, questZone.FlareType);
+                    zones.Add(customZoneContainer);
+                });
+                ExistingQuestZones.Clear();
+            }
+        }
+
         // New and select zones
         private static void DrawerNewZone(ConfigEntryBase entry)
         {

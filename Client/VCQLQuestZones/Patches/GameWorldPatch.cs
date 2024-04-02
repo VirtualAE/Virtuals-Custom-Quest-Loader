@@ -6,6 +6,7 @@ using System.Reflection;
 using BepInEx;
 using UnityEngine;
 using VCQLQuestZones.Core;
+using System.Linq;
 
 namespace VCQLQuestZones.Patches
 {
@@ -23,6 +24,8 @@ namespace VCQLQuestZones.Patches
             {
                 string current_map = __instance.MainPlayer.Location;
                 List<Zone> questZones = QuestZones.GetZones();
+                List<Zone> validZones = questZones.Where(zone => zone.ZoneLocation.ToLower() == current_map.ToLower()).ToList();
+                Plugin.ExistingQuestZones = validZones;
                 QuestZones.CreateZones(questZones, current_map);
             }
             catch (Exception e)
