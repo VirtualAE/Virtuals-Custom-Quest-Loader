@@ -52,9 +52,8 @@ namespace VCQLQuestZones.Core
             renderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             renderer.material.color = Plugin.ColorZoneRed;
-
             cube.GetComponent<Collider>().enabled = false;
-            cube.transform.position = new Vector3(vectorPosition.x, vectorPosition.y, vectorPosition.z); ;
+            cube.transform.position = new Vector3(vectorPosition.x, vectorPosition.y, vectorPosition.z);
             cube.transform.localScale = new Vector3(1f, 1f, 1f);
             cube.name = objectName;
             return cube;
@@ -77,7 +76,7 @@ namespace VCQLQuestZones.Core
                     FlareType = zone.FlareZoneType,
                     Position = new ZoneTransform(zoneObject.transform.position.x.ToString(), zoneObject.transform.position.y.ToString(), zoneObject.transform.position.z.ToString()),
                     Scale = new ZoneTransform(zoneObject.transform.localScale.x.ToString(), zoneObject.transform.localScale.y.ToString(), zoneObject.transform.localScale.z.ToString()),
-                    Rotation = new ZoneTransform(zoneObject.transform.rotation.x.ToString(), zoneObject.transform.rotation.y.ToString(), zoneObject.transform.rotation.z.ToString())
+                    Rotation = new ZoneTransform(zoneObject.transform.rotation.x.ToString(), zoneObject.transform.rotation.y.ToString(), zoneObject.transform.rotation.z.ToString(), zoneObject.transform.rotation.w.ToString())
                 };
                 convertedZones.Add(newZone);
             });

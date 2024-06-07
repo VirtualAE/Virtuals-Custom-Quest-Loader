@@ -148,11 +148,11 @@ namespace VCQLQuestZones
                 {
                     GameObject cube = Utils.CreateNewZoneCube(questZone.ZoneName);
                     Vector3 position = new Vector3(float.Parse(questZone.Position.X), float.Parse(questZone.Position.Y), float.Parse(questZone.Position.Z));
-                    Vector3 rotation = new Vector3(float.Parse(questZone.Rotation.X), float.Parse(questZone.Rotation.Y), float.Parse(questZone.Rotation.Z));
                     Vector3 scale = new Vector3(float.Parse(questZone.Scale.X), float.Parse(questZone.Scale.Y), float.Parse(questZone.Scale.Z));
+                    Quaternion rotation = new Quaternion(float.Parse(questZone.Rotation.X), float.Parse(questZone.Rotation.Y), float.Parse(questZone.Rotation.Z), float.Parse(questZone.Rotation.W));
 
                     cube.transform.position = position;
-                    cube.transform.rotation = Quaternion.Euler(rotation);
+                    cube.transform.rotation = rotation;
                     cube.transform.localScale = scale;
 
                     CustomZoneContainer customZoneContainer = new CustomZoneContainer(cube, questZone.ZoneType, questZone.FlareType);
@@ -333,9 +333,11 @@ namespace VCQLQuestZones
             ScaleConfigY.Value = currentZone.transform.localScale.y;
             ScaleConfigZ.Value = currentZone.transform.localScale.z;
 
-            RotationConfigX.Value = currentZone.transform.rotation.x;
-            RotationConfigY.Value = currentZone.transform.rotation.y;
-            RotationConfigZ.Value = currentZone.transform.rotation.z;
+            // Quart back to euler
+            Vector3 rotationEulerAngles = currentZone.transform.rotation.eulerAngles;
+            RotationConfigX.Value = rotationEulerAngles.x;
+            RotationConfigY.Value = rotationEulerAngles.y;
+            RotationConfigZ.Value = rotationEulerAngles.z;
         }
 
         private static void ConvertOutputZones()
