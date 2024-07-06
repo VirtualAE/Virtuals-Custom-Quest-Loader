@@ -9,12 +9,12 @@ namespace VCQLQuestZones.Core
     {
         public int Experience;
 
-        void Awake()
+        public void Awake()
         {
             gameObject.layer = LayerMask.NameToLayer("Triggers");
         }
 
-        protected override void TriggerEnter(Player player)
+        public override void TriggerEnter(Player player)
         {
             base.TriggerEnter(player);
 #if DEBUG

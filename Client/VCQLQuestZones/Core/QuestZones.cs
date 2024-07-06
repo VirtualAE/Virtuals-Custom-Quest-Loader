@@ -182,11 +182,10 @@ namespace VCQLQuestZones.Core
         }
 
 
-        public static void CreateZones(List<Zone> zones, string Location)
+        public static void CreateZones(List<Zone> zones)
         {
             foreach (Zone zone in zones)
             {
-                if (zone.ZoneLocation.ToLower() == Location.ToLower())
                 {
                     if (zone.ZoneType.ToLower() == "placeitem")
                     {

@@ -1,4 +1,4 @@
-﻿using Aki.Reflection.Patching;
+﻿using SPT.Reflection.Patching;
 using EFT;
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace VCQLQuestZones.Patches
                 List<Zone> questZones = QuestZones.GetZones();
                 List<Zone> validZones = questZones.Where(zone => zone.ZoneLocation.ToLower() == current_map.ToLower()).ToList();
                 Plugin.ExistingQuestZones = validZones;
-                QuestZones.CreateZones(questZones, current_map);
+                QuestZones.CreateZones(validZones);
             }
             catch (Exception e)
             {

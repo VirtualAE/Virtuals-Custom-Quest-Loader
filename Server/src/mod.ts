@@ -1,23 +1,23 @@
 import { DependencyContainer} from "tsyringe";
-import { IPostDBLoadMod } from "@spt-aki/models/external/IPostDBLoadMod";
-import { IPreAkiLoadMod } from "@spt-aki/models/external/IPreAkiLoadMod"
-import type {StaticRouterModService} from "@spt-aki/services/mod/staticRouter/StaticRouterModService";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { ConfigTypes } from "@spt-aki/models/enums/ConfigTypes";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ImageRouter } from "@spt-aki/routers/ImageRouter";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
+import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
+import { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod"
+import type {StaticRouterModService} from "@spt/services/mod/staticRouter/StaticRouterModService";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ImageRouter } from "@spt/routers/ImageRouter";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
 import * as path from "path";
 const fs = require('fs');
 const modPath = path.normalize(path.join(__dirname, '..'));
 
-class VCQL implements IPostDBLoadMod, IPreAkiLoadMod {
+class VCQL implements IPostDBLoadMod, IPreSptLoadMod {
     private enableLogging;
     private enableDebugLogging;
     private ignoreSideExclusive;
     private zones;
 
-    public preAkiLoad(container: DependencyContainer): void {
+    public preSptLoad(container: DependencyContainer): void {
         const staticRouterModService: StaticRouterModService = container.resolve<StaticRouterModService>("StaticRouterModService")
         const logger = container.resolve<ILogger>("WinstonLogger")
 
