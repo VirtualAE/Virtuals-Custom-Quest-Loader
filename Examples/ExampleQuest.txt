@@ -3,142 +3,127 @@ In this I have added a "sideExclusive" property so that only Usec players can ac
 I have also added a date range so you can only get it during January.
 The rewards from this quest also include the assort unlock, for the trades specified in ExampleAssort.txt.
 
-"VCQ_1": {
-  "QuestName": "Mall Cop",
-  "_id": "VCQ_1",
-  "canShowNotificationsInGame": true,
-  "changeQuestMessageText": "VCQ_1 changeQuestMessageText",
-  "sideExclusive": "Usec",
-  "startMonth": 1,
-  "endMonth": 1,
-  "startDay": 1,
-  "endDay": 31,
-  "conditions": {
-    "AvailableForFinish": [
-      {
-        "_parent": "CounterCreator",
-        "_props": {
+{
+  "VCQ_1": {
+    "QuestName": "Mall Cop",
+    "_id": "VCQ_1",
+    "canShowNotificationsInGame": true,
+    "changeQuestMessageText": "VCQ_1 changeQuestMessageText",
+    "conditions": {
+      "AvailableForFinish": [
+        {
+          "conditionType": "CounterCreator",
           "counter": {
-            "id": "VCQ_1_AFF_0_0",
             "conditions": [
               {
-                "_parent": "Kills",
-                "_props": {
-                  "target": "Savage",
-                  "compareMethod": ">=",
-                  "value": "1",
-                  "weapon": [
-                    "5a7ae0c351dfba0017554310"
-                  ],
-                  "id": "VCQ_1_AFF_0_1"
-                }
+                "compareMethod": ">=",
+                "conditionType": "Kills",
+                "id": "VCQ_1_AFF_0_1",
+                "target": "Savage",
+                "value": "1",
+                "weapon": [
+                  "5a7ae0c351dfba0017554310"
+                ]
               },
               {
-                "_parent": "Location",
-                "_props": {
-                  "target": [
-                    "Interchange"
-                  ],
-                  "id": "VCQ_1_AFF_0_2"
-                }
+                "conditionType": "Location",
+                "id": "VCQ_1_AFF_0_2",
+                "target": [
+                  "Interchange"
+                ]
               }
-            ]
+            ],
+            "id": "VCQ_1_AFF_0_0"
           },
+          "doNotResetIfCounterCompleted": false,
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
           "id": "VCQ_1_AFF_0",
           "index": 0,
-          "parentId": "",
           "oneSessionOnly": false,
-          "dynamicLocale": false,
+          "parentId": "",
           "type": "Elimination",
-          "doNotResetIfCounterCompleted": false,
           "value": "20",
           "visibilityConditions": []
-        },
-        "dynamicLocale": false
-      }
-    ],
-    "AvailableForStart": [
-      {
-        "_parent": "Level",
-        "_props": {
+        }
+      ],
+      "AvailableForStart": [
+        {
+          "compareMethod": ">=",
+          "conditionType": "Level",
+          "dynamicLocale": false,
+          "globalQuestCounterId": "",
           "id": "VCQ_1_AFS_0",
           "index": 0,
           "parentId": "",
-          "dynamicLocale": false,
           "value": 10,
-          "compareMethod": ">=",
           "visibilityConditions": []
         }
-      }  
-    ],
-    "Fail": []
-  },
-  "description": "VCQ_1 description",
-  "failMessageText": "VCQ_1 failMessageText",
-  "name": "VCQ_1 name",
-  "note": "VCQ_1 note",
-  "traderId": "5ac3b934156ae10c4430e83c",
-  "location": "5714dbc024597771384a510d",
-  "image": "/files/quest/icon/5ae4a76086f774455f7d62d2.jpg",
-  "type": "Elimination",
-  "isKey": false,
-  "restartable": false,
-  "instantComplete": false,
-  "secretQuest": false,
-  "startedMessageText": "VCQ_1 description",
-  "successMessageText": "VCQ_1 successMessageText",
-  "templateId": "VCQ_1",
-  "rewards": {
-    "Started": [],
-    "Success": [
-      {
-        "value": "12000",
-        "id": "VCQ_1_Reward0",
-        "type": "Experience",
-        "index": 0
-      },
-      {
-        "value": "0.05",
-        "id": "VCQ_1_Reward1",
-        "type": "TraderStanding",
-        "target": "5ac3b934156ae10c4430e83c",
-        "index": 1
-      },
-      {
-        "value": "20000",
-        "id": "VCQ_1_Reward2",
-        "type": "Item",
-        "target": "VCQ_1_ItemReward0",
-        "index": 2,
-        "findInRaid": true,
-        "items": [
-          {
-            "_id": "VCQ_1_ItemReward0",
-            "_tpl": "5449016a4bdc2d6f028b456f",
-            "upd": {
-              "StackObjectsCount": 20000
+      ],
+      "Fail": []
+    },
+    "declinePlayerMessage": "VCQ_1 declinePlayerMessage",
+    "description": "VCQ_1 description",
+    "failMessageText": "VCQ_1 failMessageText",
+    "image": "/files/quest/icon/5ae4a76086f774455f7d62d2.jpg",
+    "instantComplete": false,
+    "isKey": false,
+    "location": "5714dbc024597771384a510d",
+    "name": "VCQ_1 name",
+    "note": "VCQ_1 note",
+    "restartable": false,
+    "rewards": {
+      "Fail": [],
+      "Started": [],
+      "Success": [
+        {
+          "id": "VCQ_1_Reward0",
+          "index": 0,
+          "type": "Experience",
+          "value": "12000"
+        },
+        {
+          "id": "VCQ_1_Reward1",
+          "index": 1,
+          "target": "5ac3b934156ae10c4430e83c",
+          "type": "TraderStanding",
+          "value": "0.05"
+        },
+        {
+          "findInRaid": true,
+          "id": "VCQ_1_Reward2",
+          "index": 2,
+          "items": [
+            {
+              "_id": "VCQ_1_ItemReward0",
+              "_tpl": "5449016a4bdc2d6f028b456f",
+              "upd": {
+                "StackObjectsCount": 20000
+              }
             }
-          }
-        ]
-      },
-      {
-        "value": "1",
-        "id": "VCQ_1_Reward3",
-        "type": "Item",
-        "target": "VCQ_1_ItemReward1",
-        "index": 3,
-        "findInRaid": true,
-        "items": [
-          {
-            "_id": "VCQ_1_ItemReward1",
-            "_tpl": "590c37d286f77443be3d7827",
-            "upd": {
-              "StackObjectsCount": 1
+          ],
+          "target": "VCQ_1_ItemReward0",
+          "type": "Item",
+          "value": "20000"
+        },
+        {
+          "findInRaid": true,
+          "id": "VCQ_1_Reward3",
+          "index": 3,
+          "items": [
+            {
+              "_id": "VCQ_1_ItemReward1",
+              "_tpl": "590c37d286f77443be3d7827",
+              "upd": {
+                "StackObjectsCount": 1
+              }
             }
-          }
-        ]
-      },
-      {
+          ],
+          "target": "VCQ_1_ItemReward1",
+          "type": "Item",
+          "value": "1"
+        },
+        {
           "id": "VCQ_1_Reward4",
           "index": 4,
           "items": [
@@ -165,80 +150,90 @@ The rewards from this quest also include the assort unlock, for the trades speci
               "_tpl": "5888988e24597752fe43a6fa",
               "parentId": "DVL",
               "slotId": "mod_magazine"
-          },
-          {
+            },
+            {
               "_id": "57106bd9a490b373f7f0be42",
               "_tpl": "57aca93d2459771f2c7e26db",
               "parentId": "DVL",
               "slotId": "mod_scope",
               "upd": {
-                  "Sight": {
-                      "ScopesCurrentCalibPointIndexes": [
-                          0,
-                          0
-                      ],
-                      "ScopesSelectedModes": [
-                          0,
-                          0
-                      ],
-                      "SelectedScope": 0
-                  }
+                "Sight": {
+                  "ScopesCurrentCalibPointIndexes": [
+                    0,
+                    0
+                  ],
+                  "ScopesSelectedModes": [
+                    0,
+                    0
+                  ],
+                  "SelectedScope": 0
+                }
               }
-          },
-          {
+            },
+            {
               "_id": "122640ed63dfd608c1d8b661",
               "_tpl": "5888945a2459774bf43ba385",
               "parentId": "DVL",
               "slotId": "mod_barrel"
-          },
-          {
+            },
+            {
               "_id": "36f46a8e9756d0375c00f5a9",
               "_tpl": "55d4b9964bdc2d1d4e8b456e",
               "parentId": "DVL",
               "slotId": "mod_pistol_grip"
-          },
-          {
+            },
+            {
               "_id": "eba7245c55bbed47fc07fdc5",
               "_tpl": "58889d0c2459775bc215d981",
               "parentId": "DVL",
               "slotId": "mod_stock"
-          },
-          {
+            },
+            {
               "_id": "feec1f5b819e88f56fc19a48",
               "_tpl": "58dd3ad986f77403051cba8f",
               "parentId": "DVL",
               "slotId": "patron_in_weapon"
-          },
-          {
+            },
+            {
               "_id": "7a8b9f7363d1ffc2a1abc83b",
               "_tpl": "58dd3ad986f77403051cba8f",
+              "location": 0,
               "parentId": "b5780a5ec10ef2f4974d087c",
               "slotId": "cartridges",
-              "location": 0,
               "upd": {
-                  "StackObjectsCount": 2
+                "StackObjectsCount": 2
               }
-          },
-          {
+            },
+            {
               "_id": "5ce9962d3bcc1f8528441f3e",
               "_tpl": "58889c7324597754281f9439",
               "parentId": "122640ed63dfd608c1d8b661",
               "slotId": "mod_muzzle"
-          },
-          {
+            },
+            {
               "_id": "9a09f494510897963f3023af",
               "_tpl": "5888961624597754281f93f3",
               "parentId": "122640ed63dfd608c1d8b661",
               "slotId": "mod_bipod"
-          }
+            }
           ],
           "loyaltyLevel": 1,
           "target": "DVL",
           "traderId": "5a7c2eca46aef81a7ca2145d",
           "type": "AssortmentUnlock"
         }
-    ],
-    "Fail": []
-  },
-  "side": "Pmc",
+      ]
+    },
+    "secretQuest": false,
+    "side": "Pmc",
+    "sideExclusive": "Usec",
+    "startDay": 1,
+    "startMonth": 1,
+    "endDay": 31,
+    "endMonth": 1,
+    "startedMessageText": "VCQ_1 description",
+    "successMessageText": "VCQ_1 successMessageText",
+    "traderId": "5ac3b934156ae10c4430e83c",
+    "type": "Elimination"
+  }
 }
