@@ -6,7 +6,7 @@ using Comfort.Common;
 using EFT;
 using EFT.UI;
 using EFT.Interactive;
-using EFT.PrefabSettings;
+using EFT.InventoryLogic;
 
 
 
