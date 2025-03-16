@@ -16,7 +16,7 @@ using System.Text;
 
 namespace VCQLQuestZones
 {
-    [BepInPlugin("com.virtual.vcql", "VCQL-Zones", "2.0.3")]
+    [BepInPlugin("com.virtual.vcql", "VCQL-Zones", "2.0.4")]
     [BepInProcess("EscapeFromTarkov.exe")]
     public class Plugin : BaseUnityPlugin
     {
